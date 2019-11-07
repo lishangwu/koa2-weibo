@@ -48,12 +48,13 @@ class UserController{
 
     async login(ctx, userName, password){
         const userInfo = await getUserInfo(userName, doCrypto(password))
-        if(userInfo){
+        if(!userInfo){
             return new ErrorModel(loginFailInfo)
         }
         if(ctx.session.userInfo == null){
             ctx.session.userInfo = userInfo
         }
+        
         return new SuccessModel()
     }
 
