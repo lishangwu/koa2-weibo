@@ -13,10 +13,7 @@ const { REDIS_CONF } = require('./conf/db')
 const { isProd }  = require('./utils/env')
 const { SESSION_SECRET_KEY } = require('./conf/secretKeys')
 
-const index = require('./routes/index')
-const users = require('./routes/users')
-
-const errorViewRouter = require('./routes/view/error')
+const router = require('./routes')
 
 // error handler
 let onerrorConf = {}
@@ -66,11 +63,7 @@ app.use(async (ctx, next) => {
 })
 
 // routes
-app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
-
-app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods())
-
+router(app)
 // error-handling
 app.on('error', (err, ctx) => {
     console.error('server error', err, ctx)

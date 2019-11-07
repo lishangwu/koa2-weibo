@@ -1,26 +1,13 @@
-const router = require('koa-router')()
+const glob = require('glob')
+const { resolve } = require('path')
 
-router.get('/', async (ctx, next) => {
-    await ctx.render('index', {
-        title: 'Hello Koa 2!'
+module.exports = app => {
+    glob.sync( resolve(__dirname, './**/*.js') ).forEach(file =>{
+        if(file.indexOf('index.js') == -1 && file.indexOf('error.js') == -1 ){
+            const route = require(file)
+            app.use(route.routes(), route.allowedMethods())
+        }
     })
-})
-
-router.get('/string', async (ctx, next) => {
-    ctx.body = 'koa2 string'
-})
-
-router.get('/json', async (ctx, next) => {
-    const session = ctx.session
-    if(session.viewNum == null){
-        session.viewNum = 0
-    }else{
-        session.viewNum++
-    }
-    ctx.body = {
-        title: 'koa2 json',
-    // viewNum: session.viewNum
-    }
-})
-
-module.exports = router
+    const errorRouter = require('./view/error')
+    app.use(errorRouter.routes(), errorRouter.allowedMethods())
+}

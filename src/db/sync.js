@@ -1,4 +1,6 @@
-const seq = requore('./seq')
+const seq = require('./seq')
+
+require('./model')
 
 seq.authenticate().then(()=>{
     console.log('auth ok')
