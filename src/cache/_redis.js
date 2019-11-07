@@ -21,7 +21,7 @@ function set(key, val, timeout = 60*60){
     if(typeof val === 'object'){
         val = JSON.stringify(val)
     }
-    redisClient.set(key,val)
+    redisClient.set(key, val)
     redisClient.expire(key, timeout)
 }
 /**

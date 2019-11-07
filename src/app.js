@@ -10,7 +10,7 @@ const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
 
 const { REDIS_CONF } = require('./conf/db')
-const {isProd}  = require('./utils/env')
+const { isProd }  = require('./utils/env')
 const { SESSION_SECRET_KEY } = require('./conf/secretKeys')
 
 const index = require('./routes/index')
@@ -30,7 +30,7 @@ onerror(app)
 
 // middlewares
 app.use(bodyparser({
-    enableTypes:['json', 'form', 'text']
+    enableTypes: ['json', 'form', 'text']
 }))
 app.use(json())
 app.use(logger())
