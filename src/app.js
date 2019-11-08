@@ -6,6 +6,8 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
+const path = require('path')
+
 const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
 
@@ -35,6 +37,7 @@ app.use(bodyparser({
 app.use(json())
 // app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
+app.use(require('koa-static')(path.join(__dirname, '..', 'uploadFiles')))
 
 app.use(views(__dirname + '/views', {
     extension: 'ejs'
@@ -62,9 +65,14 @@ app.use(async (ctx, next) => {
     const start = new Date()
     await next()
     const ms = new Date() - start
-    console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
+    console.log(`${ctx.method} ${ctx.url} - ${ms}ms.....`)
 })
-
+app.use(async (ctx, next) => {
+    const start = new Date()
+    await next()
+    const ms = new Date() - start
+    console.log(`${ctx.method} ${ctx.url} - ${ms}ms.....`)
+})
 // routes
 router(app)
 console.log()

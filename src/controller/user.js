@@ -72,7 +72,7 @@ class UserController{
             nickName = userName
         }
 
-        const ressult = await updateUser(
+        const result = await updateUser(
             {
                 newNickName: nickName,
                 newCity: city,

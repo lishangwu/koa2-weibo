@@ -18,7 +18,6 @@ const { getFollowers } = require('../../controller/user-relation')
 router.prefix('/api/user')
 
 router.post('/register', genValidator(userValidate), async(ctx, next)=>{
-    console.log(ctx.request.body)
     const { userName, password, gender } = ctx.request.body
     ctx.body = await register({
         userName, password, gender
@@ -43,6 +42,7 @@ router.post('/delete', loginCheck, async (ctx, next) => {
 // 修改个人信息
 router.patch('/changeInfo', loginCheck, genValidator(userValidate), async (ctx, next) => {
     const { nickName, city, picture } = ctx.request.body
+    logger(nickName, city, picture)
     ctx.body = await changeInfo(ctx, { nickName, city, picture })
 })
 
