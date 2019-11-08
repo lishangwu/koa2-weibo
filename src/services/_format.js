@@ -16,7 +16,7 @@ function formatUser(list){
         return list.map(_formatUserPicture)
     }
 
-    return _formatUserPicture
+    return _formatUserPicture(list)
 }
 
 function _formatDBTime(obj){

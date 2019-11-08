@@ -10,11 +10,14 @@ const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
 
 const { REDIS_CONF } = require('./conf/db')
-const { isProd }  = require('./utils/env')
+const { isProd, isDev }  = require('./utils/env')
 const { SESSION_SECRET_KEY } = require('./conf/secretKeys')
 
 const router = require('./routes')
 
+if(isDev){
+    require('./utils/logger')
+}
 // error handler
 let onerrorConf = {}
 if(isProd){
@@ -30,7 +33,7 @@ app.use(bodyparser({
     enableTypes: ['json', 'form', 'text']
 }))
 app.use(json())
-app.use(logger())
+// app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
 
 app.use(views(__dirname + '/views', {
@@ -64,6 +67,12 @@ app.use(async (ctx, next) => {
 
 // routes
 router(app)
+console.log()
+console.log()
+console.log()
+console.log()
+console.log()
+
 // error-handling
 app.on('error', (err, ctx) => {
     console.error('server error', err, ctx)
