@@ -7,7 +7,7 @@ const { loginCheckFailInfo } = require('../model/ErrorInfo')
  * @param {*} next 
  */
 async function loginCheck(ctx, next){
-    if(!ctx.session && ctx.session.userInfo){
+    if(ctx.session && ctx.session.userInfo){
         await next()
         return
     }
@@ -15,7 +15,7 @@ async function loginCheck(ctx, next){
 }
 
 async function loginRedirect(ctx, next){
-    if(!ctx.session && ctx.session.userInfo){
+    if(ctx.session && ctx.session.userInfo){
         await next()
         return
     }

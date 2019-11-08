@@ -3,9 +3,7 @@ var PROJECT_ROOT = path.join(__dirname, '..')
 
 global.logger = function(){
     console.log()
-    console.log()
     console.log(formatLogArguments (arguments))
-    console.log()
     console.log()
 }
 

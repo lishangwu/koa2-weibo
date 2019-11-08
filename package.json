@@ -30,7 +30,8 @@
     "koa-views": "^5.2.1",
     "mysql2": "^2.0.0",
     "redis": "^2.8.0",
-    "sequelize": "^5.21.2"
+    "sequelize": "^5.21.2",
+    "xss": "^1.0.6"
   },
   "devDependencies": {
     "@kenworks/colorconsole": "^0.2.0",
