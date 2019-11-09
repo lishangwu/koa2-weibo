@@ -17,7 +17,7 @@ class UserService {
             return result
         }
 
-        const formatRes = formatUser(result)
+        const formatRes = formatUser(result.dataValues)
         return formatRes
     }
 
