@@ -42,7 +42,6 @@ router.post('/delete', loginCheck, async (ctx, next) => {
 // 修改个人信息
 router.patch('/changeInfo', loginCheck, genValidator(userValidate), async (ctx, next) => {
     const { nickName, city, picture } = ctx.request.body
-    logger(nickName, city, picture)
     ctx.body = await changeInfo(ctx, { nickName, city, picture })
 })
 

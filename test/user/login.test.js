@@ -3,7 +3,7 @@ const server = require('../server')
 
 // 用户信息
 const userName = `u_${Date.now()}`
-const password = `p_${Date.now()}`
+const password = userName || `p_${Date.now()}`
 const testUser = {
     userName,
     password,
@@ -61,8 +61,16 @@ test('登录，应该成功', async () => {
         })
     expect(res.body.errno).toBe(0)
 
+    const resCookie = res.headers['set-cookie'][0]
+    const str1 = resCookie.match(/weibo.sid=(\S*);\s/)[0]
+    const str2 = resCookie.match(/weibo.sid.sig=(\S*);\s/)[0]
+    COOKIE = str1 + str2
+
+    // COOKIE = resCookie.split(';')[0] + ";" + resCookie.split(';')[3]
+    // COOKIE = COOKIE.replace('httponly,', '')
+
     // 获取 cookie
-    COOKIE = res.headers['set-cookie'].join(';')
+    // COOKIE = res.headers['set-cookie'].join(';')
 })
 
 // 修改基本信息
